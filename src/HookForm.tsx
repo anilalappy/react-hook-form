@@ -18,20 +18,7 @@ interface FormValues {
   fields: Field[];
 }
 
-export const HookForm: React.FC = () => {
-  const methods = useForm<FormValues>();
-
-  const { control, handleSubmit, register, getValues } = methods;
-
-  useEffect(() => {
-    onSubmit();
-  });
-  const onSubmit = () => {
-    console.log("getValues--->", getValues());
-  };
-
-  //-----------------------
-  const billRatesArray = [
+ export  const billRatesArray = [
     {
       skillSet: "RN, ICU, Burn ICU",
       shiftDetails: [
@@ -212,6 +199,21 @@ export const HookForm: React.FC = () => {
     },
   ];
 
+export const HookForm: React.FC = () => {
+  const methods = useForm<FormValues>();
+
+  const { control, handleSubmit, register, getValues } = methods;
+
+  useEffect(() => {
+    onSubmit();
+  });
+  const onSubmit = () => {
+    console.log("getValues--->", getValues());
+  };
+
+  //-----------------------
+
+
   const defaultValues = [
     { column1: "default value 1-1", column2: "default value 1-2" },
     { column1: "default value 2-1", column2: "default value 2-2" },
@@ -243,6 +245,7 @@ export const HookForm: React.FC = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <FieldsWrapper />
         {/* <GWWWrapper /> */}
+        <button onClick={()=>onSubmit()}>click</button>
       </form>
     </FormProvider>
   );

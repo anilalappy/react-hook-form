@@ -3,20 +3,20 @@ import { Controller, useFormContext } from "react-hook-form";
 interface PropTypes {
   ColIndex: number;
   rowIndex: number;
-  field: any;
+  shiftItemDetails: any;
   type: any;
-  shiftItem: any;
+  skillSetItemDetails: any;
 }
 export const FieldComponent = ({
   rowIndex,
   ColIndex,
-  field,
+  shiftItemDetails,
   type,
-  shiftItem,
+  skillSetItemDetails,
 }: PropTypes) => {
-  debugger
-  const { control, setValue } = useFormContext();
+  const { control, setValue,getValues } = useFormContext();
   // console.log('rendr',`${rowIndex}.${ColIndex}`)
+  console.log("🚀 ~ file: FieldComponent.tsx:17 ~ skillSetItemDetails", getValues('fields')[rowIndex].shiftDetails[ColIndex].inputDetails)
   return (
     <div>
       <div key={`${rowIndex}.${ColIndex}`}>
@@ -30,15 +30,15 @@ export const FieldComponent = ({
               {...field}
               onBlur={(e) => {
                 setValue(
-                  `${type}.${rowIndex}.${ColIndex}.value`,
-                  e.target.value
+                  `${type}.${rowIndex}.${ColIndex}.inputDetails`,
+                  {value:e.target.value,shiftName: "10", isOcbr: false}
                 );
               }}
             />
           )}
           control={control}
-          name={`${type}.${rowIndex}.${ColIndex}.value`}
-          defaultValue={field?.shiftItem?.newVal}
+          name={`${type}.${rowIndex}.${ColIndex}.inputDetails.value`}
+          defaultValue={getValues('fields')[rowIndex].shiftDetails[ColIndex].inputDetails.value}
           rules={{ required: true }}
         />
       </div>

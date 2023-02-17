@@ -3,15 +3,15 @@ import { Controller, useFormContext } from "react-hook-form";
 import { FieldComponent } from "./FieldComponent";
 interface PropTypes {
   rowIndex: number;
-  field: any;
+  skillSetItemDetails: any;
   type: any;
 }
-export const FieldWrapperTwo = ({ rowIndex, field, type }: PropTypes) => {
+export const FieldWrapperTwo = ({ rowIndex, skillSetItemDetails, type }: PropTypes) => {
   const { control, setValue } = useFormContext();
   let c = 0;
   return (
     <div>
-      {field.shiftArr.map((shiftItem: any, index: any) => {
+      {skillSetItemDetails.shiftDetails.map((shiftItemDetails: any, index: any) => {
         debugger
         c += 1;
         console.log(
@@ -24,8 +24,8 @@ export const FieldWrapperTwo = ({ rowIndex, field, type }: PropTypes) => {
             {/* // <FieldComponent type={`fields`} index={index} field={field} /> */}
             <FieldComponent
               type={`fields`}
-              field={field}
-              shiftItem={shiftItem}
+              skillSetItemDetails={skillSetItemDetails}
+              shiftItemDetails={shiftItemDetails}
               rowIndex={rowIndex}
               ColIndex={index}
             />
