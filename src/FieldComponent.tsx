@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 interface PropTypes {
   ColIndex: number;
@@ -10,35 +11,50 @@ interface PropTypes {
 export const FieldComponent = ({
   rowIndex,
   ColIndex,
-  shiftItemDetails,
   type,
-  skillSetItemDetails,
 }: PropTypes) => {
   const { control, setValue,getValues } = useFormContext();
-  // console.log('rendr',`${rowIndex}.${ColIndex}`)
-  console.log("🚀 ~ file: FieldComponent.tsx:17 ~ skillSetItemDetails", getValues('fields')[rowIndex].shiftDetails[ColIndex].inputDetails)
+  const [value01, setvalue01] = useState("")
+  React.useEffect(()=>{
+    if(getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value){
+      setvalue01(getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value)
+      setValue(
+        `${type}.${rowIndex}.${ColIndex}.inputDetails`,
+        getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails
+      );
+      console.log('render-compo',getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value);
+      
+    }else{
+      setvalue01('9999')  ///Maximum value from dropdown is set here
+      setValue(
+        `${type}.${rowIndex}.${ColIndex}.inputDetails`,
+        {value:9999,shiftName: "10", isOcbr: false}
+      );
+    }
+  },[])
   return (
     <div>
       <div key={`${rowIndex}.${ColIndex}`}>
         <label htmlFor={`${type}-${ColIndex}`}>
-          
-          Field --{type} {ColIndex + 1}:
+          Field --{type} {rowIndex +1} {ColIndex + 1}:
         </label>
         <Controller
           render={({ field }) => (
             <TextField
-              {...field}
+            // {...field}
+            value={value01}
+              onChange={e=>setvalue01(e.target.value)}
               onBlur={(e) => {
                 setValue(
-                  `${type}.${rowIndex}.${ColIndex}.inputDetails`,
-                  {value:e.target.value,shiftName: "10", isOcbr: false}
-                );
+                  `${type}.${rowIndex}.${ColIndex}`,
+                  {...getValues('fields')[rowIndex].shiftDetails[ColIndex],inputDetails:{value:e.target.value,shiftName: "10", isOcbr: false}}
+                )
               }}
             />
           )}
           control={control}
           name={`${type}.${rowIndex}.${ColIndex}.inputDetails.value`}
-          defaultValue={getValues('fields')[rowIndex].shiftDetails[ColIndex].inputDetails.value}
+          // defaultValue={getValues('fields')[rowIndex].shiftDetails[ColIndex].inputDetails.value}
           rules={{ required: true }}
         />
       </div>
