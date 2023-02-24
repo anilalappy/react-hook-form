@@ -47,11 +47,11 @@ const FieldsWrapper = () => {
   const {
     fields:skillsetArray,
   } = useFieldArray({
-    name: "fields",
+    name: "billRates",
   });
 
   React.useEffect(() => {
-    setValue("fields", arr);
+    setValue("billRates", arr);
   }, []);
 
   return (
@@ -59,7 +59,7 @@ const FieldsWrapper = () => {
       {skillsetArray.map((skillSetItemDetails, index) => (
         <div key={Math.random().toString()}>
           <FieldWrapperTwo
-            type={`fields`}
+            type={`billRates`}
             rowIndex={index}
             skillSetItemDetails={skillSetItemDetails}
           />

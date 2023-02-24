@@ -15,14 +15,16 @@ export const FieldComponent = ({
 }: PropTypes) => {
   const { control, setValue,getValues } = useFormContext();
   const [value01, setvalue01] = useState("")
+  console.log('name',`${type}.${rowIndex}.${ColIndex}.inputDetails.value`);
+  
   React.useEffect(()=>{
-    if(getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value){
-      setvalue01(getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value)
+    if(getValues('billRates')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value){
+      setvalue01(getValues('billRates')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value)
       setValue(
         `${type}.${rowIndex}.${ColIndex}.inputDetails`,
-        getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails
+        getValues('billRates')[rowIndex].shiftDetails[ColIndex]?.inputDetails
       );
-      console.log('render-compo',getValues('fields')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value);
+      console.log('render-compo',getValues('billRates')[rowIndex].shiftDetails[ColIndex]?.inputDetails?.value);
       
     }else{
       setvalue01('9999')  ///Maximum value from dropdown is set here
@@ -47,14 +49,14 @@ export const FieldComponent = ({
               onBlur={(e) => {
                 setValue(
                   `${type}.${rowIndex}.${ColIndex}`,
-                  {...getValues('fields')[rowIndex].shiftDetails[ColIndex],inputDetails:{value:e.target.value,shiftName: "10", isOcbr: false}}
+                  {...getValues('billRates')[rowIndex].shiftDetails[ColIndex],inputDetails:{value:e.target.value,shiftName: "10", isOcbr: false}}
                 )
               }}
             />
           )}
           control={control}
           name={`${type}.${rowIndex}.${ColIndex}.inputDetails.value`}
-          // defaultValue={getValues('fields')[rowIndex].shiftDetails[ColIndex].inputDetails.value}
+          // defaultValue={getValues('billRates')[rowIndex].shiftDetails[ColIndex].inputDetails.value}
           rules={{ required: true }}
         />
       </div>

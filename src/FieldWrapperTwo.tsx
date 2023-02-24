@@ -13,7 +13,7 @@ export const FieldWrapperTwo = ({ rowIndex, skillSetItemDetails, type }: PropTyp
         return (
           <div key={Math.random().toString()}>
             <FieldComponent
-              type={`fields`}
+              type={type}
               skillSetItemDetails={skillSetItemDetails}
               shiftItemDetails={shiftItemDetails}
               rowIndex={rowIndex}
